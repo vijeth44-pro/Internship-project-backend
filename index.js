@@ -1,11 +1,11 @@
 import express from 'express'
+import mongoConnection from './Db.js'
 
 const app = express()
 app.use(express.json())
-
+mongoConnection()
 
 const PORT = 7000
-
 
 //test api(optional)
 app.get("/test",(req,res)=>{
