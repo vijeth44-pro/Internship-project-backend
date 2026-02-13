@@ -1,5 +1,5 @@
 // file ada karana extension haku built in tool illada karana
-import User from "../models/userSchema.js";
+import Student from "../models/studentSchema.js";
 
 // stucture of logic
 // 1.export const functionName = async(req,res)=>{
@@ -14,10 +14,10 @@ import User from "../models/userSchema.js";
     // }
 
 
-export const createUser =async(req,res) =>{
+export const createStudent =async(req,res) =>{
  try {
     const data = req.body;
-    const addUser = await User.create(data);
+    const addStudent = await Student.create(data);
     res.status(200).json({
         success: true,
         message:"Data added Successfully"
@@ -30,14 +30,14 @@ export const createUser =async(req,res) =>{
  }
 }
  
-export const getUser =async(req,res)=>{
+export const getStudent =async(req,res)=>{
     try {
-        const userData = await User.find();
+        const studentData = await Student.find();
         res.status(200).json({
             success : true,
             message:"Data fetched Successfully",
             // create one extra key
-            data : userData
+            data : studentData
         })
     } catch (error) {
          res.status(500).json({
