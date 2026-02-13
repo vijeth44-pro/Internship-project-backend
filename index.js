@@ -2,12 +2,16 @@ import express from 'express'
 import mongoConnection from './Db.js'
 import userRoutes from "./routes/userRoutes.js"
 import studentRoutes from "./routes/studentRoutes.js"
+import cors from 'cors'
+//to connect backend with front end we use cors
 
 const app = express()
 app.use(express.json())
 // mildware for frontend
 // means bridge
 mongoConnection()
+
+app.use(cors())
 
 const PORT = 1000
 
