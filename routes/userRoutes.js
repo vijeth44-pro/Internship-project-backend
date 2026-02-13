@@ -2,7 +2,7 @@
 // component routing in fronntend 
 import express from  'express'
 // inside {} for controller  {abvc,asfghj,diff function name from controller,}
-import { createUser,getUser } from '../controller/userController.js';
+import { createUser,getUser , singleView , deleteUser , updateUser} from '../controller/userController.js';
 
 // create router
 const router = express.Router()
@@ -12,6 +12,9 @@ const router = express.Router()
 // route structure -> varible.httpMethod("path",handler)
 router.post("/addUser",createUser)
 router.get("/getUser",getUser)
+router.get("/singleView/:diplomo",singleView)
+router.delete("/delete/:id", deleteUser)
+router.put("/update/:id", updateUser)
 
 // export 
 export default router;
