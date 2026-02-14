@@ -14,11 +14,19 @@ import User from "../models/userSchema.js";
 // send error in response
 // }
 // }
+//req.body -> to access data from front end
+
 
 export const createUser = async (req, res) => {
   try {
-    const data = req.body;
-    const addUser = await User.create(data);
+    const { useremail, username, userphone} = req.body;
+    const addUser = await User.create(
+      {
+        name:username,
+        email:useremail,
+        phone:userphone
+      }
+    );
     res.status(200).json({
       success: true,
       message: "Data added Successfully",
