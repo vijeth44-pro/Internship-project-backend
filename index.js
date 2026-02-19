@@ -2,6 +2,7 @@ import express from 'express'
 import mongoConnection from './Db.js'
 import userRoutes from "./routes/userRoutes.js"
 import studentRoutes from "./routes/studentRoutes.js"
+import authRoutes from "./routes/authRoutes.js"
 import cors from 'cors'
 //to connect backend with front end we use cors
 
@@ -20,6 +21,10 @@ app.get("/test",(req, res)=>{
      res.send("Hi iam backend!")
 })
 
+app.use("/users",userRoutes)
+app.use("/students",studentRoutes)
+app.use("/auth",authRoutes)
+
 app.listen(PORT, ()=>{
     console.log("Hi !,Iam Backend running on "+PORT)
 })
@@ -28,8 +33,7 @@ app.listen(PORT, ()=>{
 // mildware 
 // means bridge
 // app.use path filename
-app.use("/users",userRoutes)
-app.use("/students",studentRoutes)
+
 
 
 // http://localhost:1000/users/addUser complete api  base path till port no ,mildware,routing path  endpoint
