@@ -5,6 +5,7 @@ import studentRoutes from "./routes/studentRoutes.js"
 import authRoutes from "./routes/authRoutes.js"
 import cors from 'cors'
 //to connect backend with front end we use cors
+import { loginUser }  from './controller/authController.js'
 
 const app = express()
 app.use(express.json())
@@ -24,6 +25,7 @@ app.get("/test",(req, res)=>{
 app.use("/users",userRoutes)
 app.use("/students",studentRoutes)
 app.use("/auth",authRoutes)
+app.post("/login",loginUser)
 
 app.listen(PORT, ()=>{
     console.log("Hi !,Iam Backend running on "+PORT)
