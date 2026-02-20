@@ -1,6 +1,8 @@
 import user from "../models/userSchema.js";
 import bcrypt, { compare } from "bcrypt";
+import jwt from 'jsonwebtoken'
 
+const SECRETKEY = 'lordKey'
 
 export const registerUser = async (req, res) => {
   try {
@@ -42,7 +44,7 @@ export const loginUser = async (req,res) => {
   try {
     const { useremail,userpassword } = req.body;
 
-    const userData = await user.findOne({ useremail})
+    const userData = await user.findOne({ email : useremail})
     if(!userData){
       return res.status(500).json({
         success:false,
@@ -57,12 +59,23 @@ export const loginUser = async (req,res) => {
       })
     }
 
+    //token generate
+    //to generate token we use sign
+    //with {payload},secretkey,and {expiry} which is optional
+    // {expiresIn:"1d"}
+    const token = await jwt.sign({id:userData._id, name:userData._name},SECRETKEY)
+
 
     res.status(200).json({
       success:true,
-      message:"User logged in Successfully"
+      message:"User logged in Successfully",
+      token:token
     })
   } catch (error) {
-    
+    console.log(error);
+    res.status(500).json({
+      success: false,
+      message:'Error in login'
+    })
   }
 }
