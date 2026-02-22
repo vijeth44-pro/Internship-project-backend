@@ -3,6 +3,7 @@ import mongoConnection from './Db.js'
 import userRoutes from "./routes/userRoutes.js"
 import studentRoutes from "./routes/studentRoutes.js"
 import authRoutes from "./routes/authRoutes.js"
+import postRoutes from "./routes/postRoutes.js"
 import cors from 'cors'
 //to connect backend with front end we use cors
 
@@ -24,6 +25,7 @@ app.get("/test",(req, res)=>{
 app.use("/users",userRoutes)
 app.use("/students",studentRoutes)
 app.use("/auth",authRoutes)
+app.use("/post",postRoutes)
 
 app.listen(PORT, ()=>{
     console.log("Hi !,Iam Backend running on "+PORT)
