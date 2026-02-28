@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken'
 
-const SECRETKEY = 'MySecurityKey'
+const SECRETKEY = 'lordkey'
 
  const  authUser = async(req,res,next) =>{
   try {
@@ -16,7 +16,7 @@ const SECRETKEY = 'MySecurityKey'
      
     // decoding the token & verifing it with secret key
     // reomove secretkey only payload
-    const decoded = await jwt.verify(token,SECRETKEY)
+    const decoded = jwt.verify(token,SECRETKEY)
     // attaching the decoded user data to the request object for further use
     req.user = decoded 
     next()
