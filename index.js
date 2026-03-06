@@ -26,6 +26,7 @@ app.use("/users",userRoutes)
 app.use("/students",studentRoutes)
 app.use("/auth",authRoutes)
 app.use("/post",postRoutes)
+app.use("/uploads",express.static("uploads/"))
 
 app.listen(PORT, ()=>{
     console.log("Hi !,Iam Backend running on "+PORT)
