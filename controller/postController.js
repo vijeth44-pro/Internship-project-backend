@@ -3,9 +3,16 @@ import post from  "../models/postSchema.js"
 export const createPost = async(req,res)=>{
     try {
         const {caption} = req.body;
-        const image = req.file.filename;
+        const image = req.file?.filename;
         const userId = req.user.id
-        console.log(userId)
+
+        if (!caption || !image) {
+            return res.status(400).json({
+                success:false,
+                message:'Caption and image are required',
+            })
+        }
+
         const addData = await post.create({
             caption:caption,
             image:image,

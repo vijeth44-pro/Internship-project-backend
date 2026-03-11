@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
-const mongo_url ='mongodb://localhost:27017/Diploma'
+// const mongo_url ='mongodb://localhost:27017/Diploma'
+const mongo_url = process.env.mongo_url || process.env.mongoUrl;
 // install mongoes in terminal (npm install mongoose)
 // connection string for connect server & database
 // connection string + datbase name (path from mongodb /diploma) doesn't give space instead give  _ -
@@ -10,10 +11,13 @@ const mongo_url ='mongodb://localhost:27017/Diploma'
 
 const mongoConnection = async() =>{
   try {
+    if (!mongo_url) {
+      throw new Error("Missing MongoDB URL in env (mongo_url or mongoUrl)");
+    }
     await mongoose.connect(mongo_url)
     console.log("database connected successfully")
   } catch (error) {
-    console.log("error in connecting database")
+    console.log("error in connecting database", error.message)
   }
 }
 export default mongoConnection;

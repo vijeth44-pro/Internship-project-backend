@@ -1,14 +1,19 @@
 import jwt from 'jsonwebtoken'
 
-const SECRETKEY = 'lordkey'
+const SECRETKEY = process.env.JWT_SECRET || 'lordKey'
 
  const  authUser = async(req,res,next) =>{
   try {
-    // access token from api request
-    // frontend inda access madudu
-    const token = req.header("auth-token")
+    // Accept either `auth-token` or standard `Authorization: Bearer <token>`
+    const authTokenHeader = req.header("auth-token")
+    const authorizationHeader = req.header("authorization")
+    const bearerToken = authorizationHeader?.startsWith("Bearer ")
+      ? authorizationHeader.split(" ")[1]
+      : null
+    const token = authTokenHeader || bearerToken
+
     if(!token){
-        return req.status(401).json({
+        return res.status(401).json({
             success:false,
             message:"Token required"
         })
@@ -21,9 +26,10 @@ const SECRETKEY = 'lordkey'
     req.user = decoded 
     next()
   } catch (error) {
-    res.status(400).json()
-    success:false
-    message :"Token needed"
+    return res.status(400).json({
+      success:false,
+      message :"Invalid or expired token"
+    })
   }
  }
  export default authUser
